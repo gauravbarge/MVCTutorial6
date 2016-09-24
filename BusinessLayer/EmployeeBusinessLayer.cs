@@ -8,11 +8,14 @@ namespace BusinessLayer
 {
     public class EmployeeBusinessLayer
     {
-        EmployeeContext empContext;
-        public EmployeeBusinessLayer()
-        {
+        public  EmployeeContext empContext;
 
-            empContext = new EmployeeContext();
+        public EmployeeBusinessLayer(EmployeeContext empcontext)
+        {
+            if (empContext == null)
+            {
+                empContext = empcontext;
+            }
         }
 
 
@@ -25,7 +28,26 @@ namespace BusinessLayer
             }
         }
 
+        public void AddEmployee(Employee employee)
+        {
+            empContext.Employees.Add(employee);
+            empContext.SaveChanges();
+        }
 
+    }
+
+    public class BusinessUnitOfWork
+    {
+        private EmployeeContext context = new EmployeeContext();
+
+        public EmployeeBusinessLayer empBusinessLayer;
+
+        public EmployeeBusinessLayer GetEmployeeBusinessLayer()
+        {
+            if (empBusinessLayer == null)
+                empBusinessLayer = new EmployeeBusinessLayer(context);
+            return empBusinessLayer;
+        }
 
     }
 }

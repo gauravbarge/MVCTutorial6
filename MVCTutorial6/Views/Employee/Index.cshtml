@@ -1,22 +1,45 @@
 ﻿@model IEnumerable<BusinessLayer.Employee>
 
-@using BusinessLayer;
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </th>
+        <th></th>
+    </tr>
 
-@{ ViewBag.Title = "Employee List";}
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeID })
+        </td>
+    </tr>
+}
 
-<h2>Employee list</h2>
-
-<div style="font-family:Arial">
-    <ul>
-
-        @foreach (Employee emp in Model)
-        {
-            <li>
-                @Html.ActionLink(emp.Name, "Details", new {id=emp.EmployeeID })
-            </li>
-
-        }
-
-    </ul>
-</div>
-@Html.ActionLink("Back to list", "Index", "Department")
+</table>
