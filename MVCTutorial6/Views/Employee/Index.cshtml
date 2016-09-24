@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BusinessLayer.Employee>
+
+@using BusinessLayer;
+
+@{ ViewBag.Title = "Employee List";}
+
+<h2>Employee list</h2>
+
+<div style="font-family:Arial">
+    <ul>
+
+        @foreach (Employee emp in Model)
+        {
+            <li>
+                @Html.ActionLink(emp.Name, "Details", new {id=emp.EmployeeID })
+            </li>
+
+        }
+
+    </ul>
+</div>
+@Html.ActionLink("Back to list", "Index", "Department")
